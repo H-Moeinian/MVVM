@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mvvm.MovieDatabase.Search
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 class MVVMViewModel : ViewModel() {
     val disposable = CompositeDisposable()
