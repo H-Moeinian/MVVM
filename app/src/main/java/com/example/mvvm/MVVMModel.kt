@@ -1,5 +1,6 @@
 package com.example.mvvm
 
+import android.util.Log
 import com.example.mvvm.MovieDatabase.MovieClass
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,9 +18,10 @@ class MVVMModel {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
-        return retrofit.create(RetrofitInterface::class.java)
+        val instance = retrofit.create(RetrofitInterface::class.java)
             .getRelatedMovies(name)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+        return instance
     }
 }

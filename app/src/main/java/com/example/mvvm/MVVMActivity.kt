@@ -18,11 +18,8 @@ class MVVMActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpRecyclerView()
+        setUpViewModel()
 
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        ).get(MVVMViewModel::class.java)
 
         btnSearch.setOnClickListener {
             val name = edtText.text.toString()
@@ -38,11 +35,18 @@ class MVVMActivity : AppCompatActivity() {
 
     }
 
-     private fun setUpRecyclerView() {
+
+
+    private fun setUpRecyclerView() {
         adapter = RecyclerViewAdapter(movieList)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
+    private fun setUpViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(MVVMViewModel::class.java)    }
 
 
 }

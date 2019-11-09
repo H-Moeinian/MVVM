@@ -17,7 +17,7 @@ fun getMovies(name : String){
         .subscribe ({
             liveData.value = it.search
 
-        },{ Log.d("tt","failed")}))
+        },{ Log.d("tt",it.message)}))
 }
     fun getLiveData():LiveData<ArrayList<Search>>{
         return liveData
