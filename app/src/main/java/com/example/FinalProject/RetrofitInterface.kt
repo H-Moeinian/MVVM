@@ -1,7 +1,7 @@
-package com.example.mvvm
+package com.example.FinalProject
 
 
-import com.example.mvvm.MovieDatabase.MovieClass
+import com.example.FinalProject.MovieDatabase.MovieClass
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

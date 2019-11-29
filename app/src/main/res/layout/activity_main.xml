@@ -7,6 +7,12 @@
     tools:context=".MVVMActivity"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/btnShowDatabase"
+        android:text="show stored movies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <EditText
         android:id="@+id/edtText"
         android:layout_width="match_parent"

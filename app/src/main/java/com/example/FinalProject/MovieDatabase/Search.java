@@ -1,5 +1,5 @@
 
-package com.example.mvvm.MovieDatabase;
+package com.example.FinalProject.MovieDatabase;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

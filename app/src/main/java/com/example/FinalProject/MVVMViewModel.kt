@@ -1,12 +1,11 @@
-package com.example.mvvm
+package com.example.FinalProject
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mvvm.MovieDatabase.Search
+import com.example.FinalProject.MovieDatabase.Search
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
 class MVVMViewModel : ViewModel() {
     val disposable = CompositeDisposable()
@@ -23,6 +22,17 @@ fun getMovies(name : String){
     fun getLiveData():LiveData<ArrayList<Search>>{
         return liveData
     }
+
+    fun saveMovieInfo(db:OpenDBHelper,movie:Search) {
+        mvvmModel.saveMovie(db,movie)
+    }
+
+    fun getSavedMovies(db:OpenDBHelper) {
+        disposable.add(mvvmModel.fetchSavedMovies(db)
+            .subscribe ({
+                liveData.value=it
+
+            },{ Log.d("tt",it.message)}))    }
 
 
 }
