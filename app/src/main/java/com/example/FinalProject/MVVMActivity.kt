@@ -1,5 +1,6 @@
 package com.example.FinalProject
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -13,7 +14,6 @@ class MVVMActivity : AppCompatActivity() {
     private lateinit var viewModel: MVVMViewModel
     private val movieList = ArrayList<Search>()
     private lateinit var adapter: RecyclerViewAdapter
-    private val db=OpenDBHelper(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,12 +31,15 @@ class MVVMActivity : AppCompatActivity() {
         viewModel.getLiveData().observe(this, Observer {
             movieList.clear()
             movieList.addAll(it)
-            adapter.notifyDataSetChanged()
         })
 
-        btnShowDatabase.setOnClickListener {
-            viewModel.getSavedMovies(db)
-        }
+        viewModel.getLiveData1().observe(this, Observer {adapter.notifyDataSetChanged()
+            val i = Intent(this, SecondActivity::class.java)
+            i.putExtra("actors", it)
+            startActivity(i)
+        })
+
+
 
 
 
@@ -45,18 +48,20 @@ class MVVMActivity : AppCompatActivity() {
 
 
     private fun setUpRecyclerView() {
-        adapter = RecyclerViewAdapter(movieList) {saveMovieInfoInDataBase(it)}
+        adapter = RecyclerViewAdapter(movieList){getMovieCast(it)}
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
+
+    private fun getMovieCast(title: String) {
+viewModel.getCast(title)
+    }
+
     private fun setUpViewModel() {
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
         ).get(MVVMViewModel::class.java)    }
-    private fun saveMovieInfoInDataBase(movie:Search){
-        viewModel.saveMovieInfo(db,movie)
-    }
 
 
 }

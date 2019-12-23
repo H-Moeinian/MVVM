@@ -11,6 +11,7 @@ class MVVMViewModel : ViewModel() {
     val disposable = CompositeDisposable()
     val mvvmModel = MVVMModel()
     private val liveData = MutableLiveData<ArrayList<Search>>()
+    private val liveData1 = MutableLiveData<String>()
 
 fun getMovies(name : String){
     disposable.add(mvvmModel.fetchRelatedMovies(name)
@@ -22,17 +23,18 @@ fun getMovies(name : String){
     fun getLiveData():LiveData<ArrayList<Search>>{
         return liveData
     }
-
-    fun saveMovieInfo(db:OpenDBHelper,movie:Search) {
-        mvvmModel.saveMovie(db,movie)
+    fun getLiveData1():LiveData<String>{
+        return liveData1
     }
 
-    fun getSavedMovies(db:OpenDBHelper) {
-        disposable.add(mvvmModel.fetchSavedMovies(db)
+    fun getCast(title: String) {
+        disposable.add(mvvmModel.fetchCast(title)
             .subscribe ({
-                liveData.value=it
+                liveData1.value = it.actors
 
-            },{ Log.d("tt",it.message)}))    }
+            },{ Log.d("tt",it.message)}))
+
+    }
 
 
 }
